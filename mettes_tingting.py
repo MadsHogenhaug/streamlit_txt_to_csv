@@ -75,7 +75,7 @@ def process_txt_to_csv(txt_file):
             line[44:47], 
             line[47:49],
             line[49:52],
-            line[52-60],
+            line[52:60],
             line[60:65],
             line[65:68],
             line[68:74],
