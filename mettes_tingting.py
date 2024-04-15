@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 
+from io import BytesIO
+from pyxlsb import open_workbook as open_xlsb
+
 def process_txt_to_excel(txt_file):
     data = txt_file.read().decode("utf-8")  # Read uploaded file
     lines = data.splitlines()
@@ -111,6 +114,18 @@ def process_txt_to_excel(txt_file):
     df = pd.DataFrame(data_list, columns=column_names)
     return df
 
+def to_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    format1 = workbook.add_format({'num_format': '0.00'}) 
+    worksheet.set_column('A:A', None, format1)  
+    writer.save()
+    processed_data = output.getvalue()
+    return processed_data
+
 def main():
     st.title("TXT to Excel Converter")
 
@@ -122,18 +137,15 @@ def main():
 
         # Process file
         df = process_txt_to_excel(uploaded_file)
+        df_xlsx = to_excel(df)
 
         # Display processed dataframe
         st.write(df)
 
         # Download button for Excel file
-        st.download_button(
-            label="Download Excel",
-            data=df.to_excel(None, index=False, engine = "openpyxl"),
-            #file_name=f"{uploaded_file.name.split('.')[0]}.xlsx",  # Use uploaded file name with .xlsx extension
-            file_name = "test.xlsx", 
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+        st.download_button(label='📥 Download dataframe',
+                                data=df_xlsx ,
+                                file_name=f"{uploaded_file.name.split('.')[0]}.xlsx")
 
 
 if __name__ == "__main__":
