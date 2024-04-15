@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def process_txt_to_csv(txt_file):
+def process_txt_to_excel(txt_file):
     data = txt_file.read().decode("utf-8")  # Read uploaded file
     lines = data.splitlines()
 
