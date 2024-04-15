@@ -134,10 +134,6 @@ def main():
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
 
-        # Add security information text below
-        st.markdown("""
-        When a file is uploaded via this application, the file is sent securely from the client's browser to the Streamlit server. Streamlit does not store the files on its servers by default; instead, it processes them in memory while the session is active. Once the session ends (e.g., the user closes the browser tab), the uploaded files are no longer accessible.
-        """)
 
 if __name__ == "__main__":
     main()
