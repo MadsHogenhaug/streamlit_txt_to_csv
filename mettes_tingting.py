@@ -112,41 +112,32 @@ def process_txt_to_csv(txt_file):
     return df
 
 def main():
-    st.title("Secure TXT to Excel Converter")
+    st.title("TXT to Excel Converter")
 
-    # Authentication
-    username = st.sidebar.text_input("Username")
-    password = st.sidebar.text_input("Password", type="password")
+    # File uploader
+    uploaded_file = st.file_uploader("Upload a .txt file", type="txt")
 
-    if st.sidebar.checkbox("Login"):
-        if username == "admin" and password == "Glemsom01":
-            st.success("Logged in as admin")
-            st.write("You can now upload a .txt file.")
+    if uploaded_file is not None:
+        st.write("File uploaded successfully!")
 
-            # File uploader
-            uploaded_file = st.file_uploader("Upload a .txt file", type="txt")
+        # Process file
+        df = process_txt_to_excel(uploaded_file)
 
-            if uploaded_file is not None:
-                st.write("File uploaded successfully!")
+        # Display processed dataframe
+        st.write(df)
 
-                # Process file
-                df = process_txt_to_excel(uploaded_file)
+        # Download button for Excel file
+        st.download_button(
+            label="Download Excel",
+            data=df.to_excel(None, index=False, encoding='utf-8', engine='openpyxl'),
+            file_name=f"{uploaded_file.name.split('.')[0]}.xlsx",  # Use uploaded file name with .xlsx extension
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
 
-                # Display processed dataframe
-                st.write(df)
-
-                # Download button for Excel file
-                st.download_button(
-                    label="Download Excel",
-                    data=df.to_excel(None, index=False, encoding='utf-8', engine='openpyxl'),
-                    file_name=f"{uploaded_file.name.split('.')[0]}.xlsx",  # Use uploaded file name with .xlsx extension
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
-
-                # Add security information text below
-                st.text("When a file is uploaded via this application, the file is sent securely from the client's browser to the Streamlit server. Streamlit does not store the files on its servers by default; instead, it processes them in memory while the session is active. Once the session ends (e.g., the user closes the browser tab), the uploaded files are no longer accessible.")
-        else:
-            st.error("Invalid username or password")
+        # Add security information text below
+        st.markdown("""
+        When a file is uploaded via this application, the file is sent securely from the client's browser to the Streamlit server. Streamlit does not store the files on its servers by default; instead, it processes them in memory while the session is active. Once the session ends (e.g., the user closes the browser tab), the uploaded files are no longer accessible.
+        """)
 
 if __name__ == "__main__":
     main()
