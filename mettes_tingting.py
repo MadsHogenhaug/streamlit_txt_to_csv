@@ -130,7 +130,8 @@ def main():
         st.download_button(
             label="Download Excel",
             data=df.to_excel(None, index=False, engine = "openpyxl"),
-            file_name=f"{uploaded_file.name.split('.')[0]}.xlsx",  # Use uploaded file name with .xlsx extension
+            #file_name=f"{uploaded_file.name.split('.')[0]}.xlsx",  # Use uploaded file name with .xlsx extension
+            file_name = "test.xlsx", 
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
 
