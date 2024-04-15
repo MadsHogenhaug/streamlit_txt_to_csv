@@ -109,7 +109,7 @@ for line in lines[1:-1]:
     ])
 
     df = pd.DataFrame(data_list, columns=column_names)
-        return df
+    return df
 
 def main():
     st.title("TXT to CSV Converter")
