@@ -112,7 +112,7 @@ def process_txt_to_csv(txt_file):
     return df
 
 def main():
-    st.title("TXT to CSV Converter")
+    st.title("TXT to Excel Converter")
 
     # File uploader
     uploaded_file = st.file_uploader("Upload a .txt file", type="txt")
@@ -121,7 +121,7 @@ def main():
         st.write("File uploaded successfully!")
 
         # Process file
-        df = process_txt_to_csv(uploaded_file)
+        df = process_txt_to_excel(uploaded_file)
 
         # Display processed dataframe
         st.write(df)
@@ -129,10 +129,13 @@ def main():
         # Download button for Excel file
         st.download_button(
             label="Download Excel",
-            data=df.to_excel().encode(),
-            file_name="output.csv",
-            mime="text/csv"
+            data=df.to_excel(None, index=False, encoding='utf-8', engine='openpyxl'),
+            file_name=f"{uploaded_file.name.split('.')[0]}.xlsx",  # Use uploaded file name with .xlsx extension
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
 
+        # Add security information text below
+        st.text("When a file is uploaded via this application, the file is sent securely from the client's browser to the Streamlit server. Streamlit does not store the files on its servers by default; instead, it processes them in memory while the session is active. Once the session ends (e.g., the user closes the browser tab), the uploaded files are no longer accessible.")
+        st.text("-Mads H.)
 if __name__ == "__main__":
     main()
