@@ -108,8 +108,8 @@ def process_txt_to_csv(txt_file):
             line[225:229]
         ])
     
-        df = pd.DataFrame(data_list, columns=column_names)
-        return df
+    df = pd.DataFrame(data_list, columns=column_names)
+    return df
 
 def main():
     st.title("TXT to CSV Converter")
