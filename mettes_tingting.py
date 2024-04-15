@@ -55,7 +55,7 @@ column_names = [
     "Train category"
 ] 
 
-    data_list = []
+data_list = []
 
 for line in lines[1:-1]:
     data_list.append([
