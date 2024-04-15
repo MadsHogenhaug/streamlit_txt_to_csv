@@ -135,7 +135,7 @@ def main():
         )
 
         # Add security information text below
-        st.text("When a file is uploaded via this application, the file is sent securely from the client's browser to the Streamlit server. Streamlit does not store the files on its servers by default; instead, it processes them in memory while the session is active. Once the session ends (e.g., the user closes the browser tab), the uploaded files are no longer accessible.")
-        st.text("-Mads H.")
+        st.text_area("When a file is uploaded via this application, the file is sent securely from the client's browser to the Streamlit server. Streamlit does not store the files on its servers by default; instead, it processes them in memory while the session is active. Once the session ends (e.g., the user closes the browser tab), the uploaded files are no longer accessible.")
+        st.text_area("-Mads H.")
 if __name__ == "__main__":
     main()
