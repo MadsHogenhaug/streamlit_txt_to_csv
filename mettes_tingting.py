@@ -126,10 +126,10 @@ def main():
         # Display processed dataframe
         st.write(df)
 
-        # Download button for CSV file
+        # Download button for Excel file
         st.download_button(
-            label="Download CSV",
-            data=df.to_csv().encode(),
+            label="Download Excel",
+            data=df.to_excel().encode(),
             file_name="output.csv",
             mime="text/csv"
         )
